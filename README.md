@@ -1,6 +1,6 @@
 # Synthia
 
-## Diagrama de la Base de Datos
+## DIAGRAMA DE LA BASE DE DATOS
 
 ![Relación de tablas](./IMAGES/diagrama_DB.png)
 
