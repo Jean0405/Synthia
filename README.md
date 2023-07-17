@@ -17,8 +17,7 @@
 
 ## DIAGRAMA DE RELACIONES EN LA BASE DE DATOS
 
-[diagrama relacional](./IMAGES//diagrama_db.png)
-
+![diagrama relacional](./IMAGES//diagrama_db.png)
 
 ## LENGUAJES Y HERRAMIENTAS UTILIZADOS
 
