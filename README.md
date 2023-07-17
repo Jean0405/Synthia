@@ -29,4 +29,4 @@
 
 ## COLABORADOR
 
-**latinoamericacampus233@gmail.com**
+- [@CampusLands](https://github.com/CampusLands)
