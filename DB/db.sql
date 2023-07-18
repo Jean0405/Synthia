@@ -65,7 +65,37 @@ CREATE TABLE
 CREATE TABLE
     proyectos_estados(
         id INT AUTO_INCREMENT PRIMARY KEY,
-        id_proyecto INT
+        id_proyecto INT,
+        id_estado INT
     );
+ALTER TABLE usuarios
+ADD
+    CONSTRAINT fk_roles FOREIGN KEY (id_rol) REFERENCES roles(id);
 
-INSERT INTO roles(nombre) VALUES ("admin"),("programador");
+ALTER TABLE modulos_usuarios
+ADD
+    CONSTRAINT fk_usuarios FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
+ADD
+    CONSTRAINT fk_modulos FOREIGN KEY (id_modulo) REFERENCES modulos(id) ON DELETE CASCADE;
+
+ALTER TABLE comentarios
+ADD
+    CONSTRAINT fk_usuariosComentarios FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
+ADD
+    CONSTRAINT fk_modulosComentarios FOREIGN KEY (id_modulo) REFERENCES modulos(id) ON DELETE CASCADE;
+
+ALTER TABLE modulos
+ADD
+    CONSTRAINT fk_proyectoModulo FOREIGN KEY (id_proyecto) REFERENCES proyectos(id) ON DELETE CASCADE;
+
+ALTER TABLE modulos_estados
+ADD
+    CONSTRAINT fk_modulos_ModEstados FOREIGN KEY (id_modulo) REFERENCES modulos(id) ON DELETE CASCADE,
+ADD
+    CONSTRAINT fk_Modestados_Estados FOREIGN KEY (id_estado) REFERENCES estados(id) ON DELETE CASCADE;
+
+ALTER TABLE proyectos_estados
+ADD
+    CONSTRAINT fk_proyectos_proEstados FOREIGN KEY (id_proyecto) REFERENCES proyectos(id) ON DELETE CASCADE,
+ADD
+    CONSTRAINT fk_estados_proEstados FOREIGN KEY (id_estado) REFERENCES estados(id) ON DELETE CASCADE;
