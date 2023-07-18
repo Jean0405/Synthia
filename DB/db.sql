@@ -103,3 +103,4 @@ ADD
 
 INSERT INTO roles(nombre) VALUES ("admin"),("desarrollador");
 INSERT INTO usuarios(id,nombre, email,contrasena, id_rol) VALUES (1005184201, "Jean Angarita","jean0405@gmail.com","jean123", 1),(1005371571, "Akio","akio@gmail.com","akio1234", 2);
+SELECT * FROM usuarios;

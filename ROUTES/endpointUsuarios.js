@@ -39,5 +39,20 @@ USUARIO.delete("/:id",  proxyUsuario, async (req,res)=>{
   }
 })
 
+/*ACTUALIZAR USUARIOS */
+USUARIO.put("/:id_user",proxyUsuario ,async (req,res)=>{
+  const { id_user } = req.params;
+  const { id, nombre, email,contrasena, id_rol} = req.body;
+  console.log(req.body)
+  try {
+    await conn.execute(`UPDATE usuarios SET id = ?, nombre = ?, email = ?, contrasena = ?, id_rol = ? WHERE id = ?`, [id, nombre, email,contrasena, id_rol,id_user]);
+    res.send("DATA UPDATED");
+  } catch (error) {
+    res
+      .status(500)
+      .json({message: "ERROR TO UPDATE USER", error:error.message})  
+  }
+})
+
 
 export default USUARIO;
