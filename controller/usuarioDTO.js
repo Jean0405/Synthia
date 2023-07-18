@@ -33,10 +33,10 @@ __decorate([
 ], Usuario.prototype, "nombre", void 0);
 __decorate([
     Expose({ name: "email" }),
-    Transform(({ value }) => { if (/\S+@\S+.\S+/.test(value))
+    Transform(({ value }) => { if (/\S+@\S+\.\S+/.test(value))
         return value;
     else
-        throw { status: 400, message: `Error, el dato email no es valido` }; }, { toClassOnly: true }),
+        throw { status: 400, message: 'Error, el dato email no es válido' }; }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], Usuario.prototype, "email", void 0);
 __decorate([

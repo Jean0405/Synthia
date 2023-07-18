@@ -10,7 +10,7 @@ export class Usuario {
   nombre: string;
 
   @Expose({ name: "email" })
-  @Transform(({ value }) => { if (/\S+@\S+.\S+/.test(value)) return value; else throw { status: 400, message: `Error, el dato email no es valido` } }, { toClassOnly: true })
+  @Transform(({ value }) => {if (/\S+@\S+\.\S+/.test(value)) return value; else throw { status: 400, message: 'Error, el dato email no es válido' };}, { toClassOnly: true })
   email: string;
 
   @Expose({ name: "contrasena" })
