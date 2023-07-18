@@ -13,7 +13,7 @@ CREATE TABLE
         id INT NOT NULL PRIMARY KEY,
         nombre VARCHAR(70) NOT NULL,
         email VARCHAR(70) NOT NULL,
-        contraseña VARCHAR(30) NOT NULL,
+        contrasena VARCHAR(30) NOT NULL,
         id_rol INT
     );
 
@@ -68,6 +68,7 @@ CREATE TABLE
         id_proyecto INT,
         id_estado INT
     );
+
 ALTER TABLE usuarios
 ADD
     CONSTRAINT fk_roles FOREIGN KEY (id_rol) REFERENCES roles(id);
@@ -99,3 +100,5 @@ ADD
     CONSTRAINT fk_proyectos_proEstados FOREIGN KEY (id_proyecto) REFERENCES proyectos(id) ON DELETE CASCADE,
 ADD
     CONSTRAINT fk_estados_proEstados FOREIGN KEY (id_estado) REFERENCES estados(id) ON DELETE CASCADE;
+
+INSERT INTO roles(nombre) VALUES ("admin"),("desarrollador");
