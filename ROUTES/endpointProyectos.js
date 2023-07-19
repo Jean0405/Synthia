@@ -59,13 +59,12 @@ PROYECTO.delete("/:user_id/:project_id", proxyProyecto, async (req, res) => {
         res.send("THIS PROJECT DOESN'T EXIST");
       } else {
         if (rows[0].rol !== "admin") {
-          console.log(rows[0].rol);
           res.send("YOU DO NOT HAVE PERMISSION TO PERFORM THIS ACTION");
         } else {
           await conn.execute(`DELETE FROM proyectos WHERE id = ?`, [
             project_id,
           ]);
-          res.send("DATA DELETED");
+          res.send("PROJECT HAS BEEN DELETED");
         }
       }
     }

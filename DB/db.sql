@@ -119,11 +119,25 @@ VALUES (
         1
     );
 
+INSERT INTO
+    proyectos (
+        nombre,
+        descripcion,
+        fecha_creacion
+    )
+VALUES (
+        "Ecommerce tienda churros",
+        "bla bla bla bla",
+        "2023-07-19"
+    );
+
 /*QUERYS DE PRUEBA*/
 
 SELECT * FROM usuarios;
 
 SELECT * FROM proyectos;
+
+SELECT * FROM modulos;
 
 SELECT
     usuarios.id,
@@ -136,4 +150,21 @@ WHERE usuarios.id = 1005184201;
 
 SELECT COUNT(*) AS total FROM proyectos WHERE id = 4;
 
-SELECT nombre, descripcion, fecha_creacion FROM proyectos;
+SELECT
+    modulos.id AS id_modulo,
+    modulos.nombre AS modulo,
+    modulos.descripcion AS descripcion,
+    proyectos.nombre AS nombre_proyecto
+FROM modulos
+    INNER JOIN proyectos ON modulos.id_proyecto = proyectos.id;
+
+SELECT
+    usuarios.*,
+    roles.nombre AS rol
+FROM usuarios
+    INNER JOIN roles ON usuarios.id_rol = roles.id
+WHERE usuarios.id = 1005184201;
+
+SELECT * FROM modulos WHERE id = 1;
+
+UPDATE modulos SET nombre = "Crear ENDPOINTS", descripcion = "blah", id_proyecto = 1 WHERE id = 3;
