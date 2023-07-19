@@ -1,9 +1,9 @@
 import { plainToInstance } from "class-transformer";
-import { Usuario } from "../controller/usuarioDTO.js";
+import { Proyecto } from "../controller/proyectoDTO.js";
 
-const proxyUsuario = (req, res, next) => {
+const proxyProyecto = (req, res, next) => {
   try {
-    req.body = plainToInstance(Usuario, req.body, {
+    req.body = plainToInstance(Proyecto, req.body, {
       excludeExtraneousValues: true,
     });
     next();
@@ -12,4 +12,4 @@ const proxyUsuario = (req, res, next) => {
   }
 };
 
-export default proxyUsuario;
+export default proxyProyecto;

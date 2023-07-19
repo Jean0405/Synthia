@@ -17,6 +17,13 @@ USUARIO.use((req, res, next) => {
 
 /* CREAR USUARIOS */
 USUARIO.post("/", proxyUsuario, async (req, res) => {
+  // {
+  //   "id":1005372571,
+  //   "nombre":"Cristian Diaz",
+  //   "email":"akio@hotmail.com",
+  //   "contrasena":"akio123",
+  //   "id_rol":1
+  // }
   try {
     await conn.query(`INSERT INTO usuarios SET ?`, req.body);
     res.send("DATA INSERTED");
@@ -28,31 +35,33 @@ USUARIO.post("/", proxyUsuario, async (req, res) => {
 });
 
 /*ELIMINAR USUARIOS */
-USUARIO.delete("/:id",  proxyUsuario, async (req,res)=>{
+USUARIO.delete("/:id", proxyUsuario, async (req, res) => {
   try {
     await conn.execute(`DELETE FROM usuarios WHERE id = ?`, [req.params.id]);
     res.send("DATA DELETE");
   } catch (error) {
     res
       .status(500)
-      .json({message: "ERROR TO DELETE USER", error:error.message})  
+      .json({ message: "ERROR TO DELETE USER", error: error.message });
   }
-})
+});
 
 /*ACTUALIZAR USUARIOS */
-USUARIO.put("/:id_user",proxyUsuario ,async (req,res)=>{
+USUARIO.put("/:id_user", proxyUsuario, async (req, res) => {
   const { id_user } = req.params;
-  const { id, nombre, email,contrasena, id_rol} = req.body;
-  console.log(req.body)
+  const { id, nombre, email, contrasena, id_rol } = req.body;
+  console.log(req.body);
   try {
-    await conn.execute(`UPDATE usuarios SET id = ?, nombre = ?, email = ?, contrasena = ?, id_rol = ? WHERE id = ?`, [id, nombre, email,contrasena, id_rol,id_user]);
+    await conn.execute(
+      `UPDATE usuarios SET id = ?, nombre = ?, email = ?, contrasena = ?, id_rol = ? WHERE id = ?`,
+      [id, nombre, email, contrasena, id_rol, id_user]
+    );
     res.send("DATA UPDATED");
   } catch (error) {
     res
       .status(500)
-      .json({message: "ERROR TO UPDATE USER", error:error.message})  
+      .json({ message: "ERROR TO UPDATE USER", error: error.message });
   }
-})
-
+});
 
 export default USUARIO;

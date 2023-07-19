@@ -102,5 +102,36 @@ ADD
     CONSTRAINT fk_estados_proEstados FOREIGN KEY (id_estado) REFERENCES estados(id) ON DELETE CASCADE;
 
 INSERT INTO roles(nombre) VALUES ("admin"),("desarrollador");
-INSERT INTO usuarios(id,nombre, email,contrasena, id_rol) VALUES (1005184201, "Jean Angarita","jean0405@gmail.com","jean123", 1),(1005371571, "Akio","akio@gmail.com","akio1234", 2);
+
+INSERT INTO
+    usuarios(
+        id,
+        nombre,
+        email,
+        contrasena,
+        id_rol
+    )
+VALUES (
+        1005111201,
+        "Karen Infocopia",
+        "infocopia@gmail.com",
+        "infocopia",
+        1
+    );
+
+/*QUERYS DE PRUEBA*/
+
 SELECT * FROM usuarios;
+
+SELECT * FROM proyectos;
+
+SELECT
+    usuarios.nombre,
+    roles.nombre AS rol
+FROM usuarios
+    INNER JOIN roles ON usuarios.id_rol = roles.id
+WHERE usuarios.id = 1005184202;
+
+SELECT COUNT(*) AS total FROM proyectos WHERE id = 4;
+
+SELECT nombre, descripcion, fecha_creacion FROM proyectos;

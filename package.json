@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "tsc":"tsc -w",
+    "tsc": "tsc -w",
     "dev": "nodemon --quiet ./app.js"
   },
   "keywords": [],
@@ -19,5 +19,8 @@
     "nodemon": "^3.0.1",
     "reflect-metadata": "^0.1.13",
     "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "class-validator": "0.14.0"
   }
 }
