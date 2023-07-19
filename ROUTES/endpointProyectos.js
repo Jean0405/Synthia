@@ -32,6 +32,7 @@ PROYECTO.post("/", proxyProyecto, async (req, res) => {
   }
 });
 
+/*LISTAR PROYECTOS */
 PROYECTO.get("/", async (req, res) => {
   const [rows, fields] = await conn.execute(
     `SELECT nombre, descripcion, fecha_creacion FROM proyectos`

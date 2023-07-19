@@ -112,10 +112,10 @@ INSERT INTO
         id_rol
     )
 VALUES (
-        1005111201,
-        "Karen Infocopia",
-        "infocopia@gmail.com",
-        "infocopia",
+        1005184201,
+        "Jean Angarita",
+        "jean@gmail.com",
+        "jean123",
         1
     );
 
@@ -126,11 +126,13 @@ SELECT * FROM usuarios;
 SELECT * FROM proyectos;
 
 SELECT
+    usuarios.id,
     usuarios.nombre,
+    usuarios.email,
     roles.nombre AS rol
 FROM usuarios
     INNER JOIN roles ON usuarios.id_rol = roles.id
-WHERE usuarios.id = 1005184202;
+WHERE usuarios.id = 1005184201;
 
 SELECT COUNT(*) AS total FROM proyectos WHERE id = 4;
 

@@ -34,6 +34,13 @@ USUARIO.post("/", proxyUsuario, async (req, res) => {
   }
 });
 
+USUARIO.get("/", async (req, res) => {
+  const [rows, fields] = await conn.execute(
+    `SELECT usuarios.id, usuarios.nombre, usuarios.email, roles.nombre AS rol FROM usuarios INNER JOIN roles ON usuarios.id_rol = roles.id`
+  );
+  res.send(rows);
+});
+
 /*ELIMINAR USUARIOS */
 USUARIO.delete("/:id", proxyUsuario, async (req, res) => {
   try {
