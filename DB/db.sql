@@ -167,4 +167,10 @@ WHERE usuarios.id = 1005184201;
 
 SELECT * FROM modulos WHERE id = 1;
 
-UPDATE modulos SET nombre = "Crear ENDPOINTS", descripcion = "blah", id_proyecto = 1 WHERE id = 3;
+UPDATE modulos
+SET
+    nombre = "Crear ENDPOINTS",
+    descripcion = "blah",
+    id_proyecto = 1
+WHERE id = 3;
+

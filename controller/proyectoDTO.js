@@ -25,7 +25,7 @@ __decorate([
 ], Proyecto.prototype, "id", void 0);
 __decorate([
     Expose({ name: "nombre" }),
-    Transform(({ value }) => { if (/^[a-z A-Z]+$/.test(value))
+    Transform(({ value }) => { if (/^[a-z A-Z 0-9]+$/.test(value))
         return value;
     else
         throw { status: 400, message: `Error, el dato nombre no es valido` }; }, { toClassOnly: true }),

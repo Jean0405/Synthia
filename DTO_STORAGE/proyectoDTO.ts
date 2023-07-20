@@ -7,7 +7,7 @@ export class Proyecto {
   id: number;
 
   @Expose({ name: "nombre" })
-  @Transform(({ value }) => { if (/^[a-z A-Z]+$/.test(value)) return value; else throw { status: 400, message: `Error, el dato nombre no es valido` } }, { toClassOnly: true })
+  @Transform(({ value }) => { if (/^[a-z A-Z 0-9]+$/.test(value)) return value; else throw { status: 400, message: `Error, el dato nombre no es valido` } }, { toClassOnly: true })
   nombre: string;
 
   @Expose({ name: "descripcion" })
