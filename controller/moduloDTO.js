@@ -9,28 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Expose, Type, Transform } from "class-transformer";
 import { MaxLength } from 'class-validator';
-export class Proyecto {
-    constructor(id = 0, nombre = "", descripcion = "", fecha_creacion = "") {
-        this.id = id;
+export class Modulo {
+    constructor(id_proyecto = 0, nombre = "", descripcion = "") {
+        this.id_proyecto = id_proyecto;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.fecha_creacion = fecha_creacion;
     }
 }
 __decorate([
-    Expose({ name: "id" }),
-    Transform(({ value }) => { if (Math.floor(value) && typeof value == "number")
-        return Math.floor(value); }, { toClassOnly: true }),
-    __metadata("design:type", Number)
-], Proyecto.prototype, "id", void 0);
-__decorate([
     Expose({ name: "nombre" }),
-    Transform(({ value }) => { if (/^[a-z A-Z 0-9]+$/.test(value))
+    Transform(({ value }) => { if (/^[a-z A-Z 0-9 áéíóúÁÉÍÓÚ\s,.]+$/.test(value))
         return value;
     else
         throw { status: 400, message: `Error, el dato nombre no es valido` }; }, { toClassOnly: true }),
     __metadata("design:type", String)
-], Proyecto.prototype, "nombre", void 0);
+], Modulo.prototype, "nombre", void 0);
 __decorate([
     Expose({ name: "descripcion" }),
     Type(() => String),
@@ -38,14 +31,10 @@ __decorate([
         message: 'La descripción es muy larga',
     }),
     __metadata("design:type", String)
-], Proyecto.prototype, "descripcion", void 0);
+], Modulo.prototype, "descripcion", void 0);
 __decorate([
-    Expose({ name: "fecha_creacion" }),
-    Transform(({ value }) => { if (/^[^]*$/.test(value)) {
-        return value;
-    }
-    else {
-        throw { status: 400, message: `Error, el dato fecha reporte no es válido` };
-    } }, { toClassOnly: true }),
-    __metadata("design:type", String)
-], Proyecto.prototype, "fecha_creacion", void 0);
+    Expose({ name: "id_proyecto" }),
+    Transform(({ value }) => { if (Math.floor(value) && typeof value == "number")
+        return Math.floor(value); }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], Modulo.prototype, "id_proyecto", void 0);

@@ -12,7 +12,7 @@ export class Proyecto {
 
   @Expose({ name: "descripcion" })
   @Type(() => String)
-  @MaxLength(50, {
+  @MaxLength(100, {
     message: 'La descripción es muy larga',
   })
   descripcion: string;

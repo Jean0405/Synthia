@@ -173,4 +173,3 @@ SET
     descripcion = "blah",
     id_proyecto = 1
 WHERE id = 3;
-
