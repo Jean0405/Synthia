@@ -42,7 +42,7 @@ PROYECTO.post("/:user_id", proxyProyecto, async (req, res) => {
     }
   } catch (error) {
     res
-      .status()
+      .status(500)
       .json({ message: "ERROT TO INSERT PROJECT", error: error.message });
   }
 });
