@@ -19,7 +19,7 @@ CREATE TABLE
 
 CREATE TABLE
     modulos_usuarios(
-        id INT PRIMARY KEY,
+        id INT AUTO_INCREMENT PRIMARY KEY,
         id_usuario INT,
         id_modulo INT
     );
@@ -112,11 +112,11 @@ INSERT INTO
         id_rol
     )
 VALUES (
-        1005184201,
-        "Jean Angarita",
-        "jean@gmail.com",
-        "jean123",
-        1
+        1005111333,
+        "Hilter",
+        "hitler@gmail.com",
+        "hitler",
+        2
     );
 
 INSERT INTO
@@ -138,6 +138,20 @@ SELECT * FROM usuarios;
 SELECT * FROM proyectos;
 
 SELECT * FROM modulos;
+
+SELECT * FROM modulos_usuarios;
+
+SELECT
+    modulos.id,
+    modulos.nombre AS modulo,
+    proyectos.nombre AS proyecto,
+    usuarios.id AS id_usuario,
+    usuarios.nombre AS usuarios_asignados
+FROM modulos_usuarios AS ms
+    INNER JOIN usuarios ON ms.id_usuario = usuarios.id
+    INNER JOIN modulos ON ms.id_modulo = modulos.id
+    INNER JOIN proyectos ON modulos.id_proyecto = proyectos.id
+WHERE modulos.id = 3;
 
 SELECT
     usuarios.id,
