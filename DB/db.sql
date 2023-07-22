@@ -24,6 +24,8 @@ CREATE TABLE
         id_modulo INT
     );
 
+DROP TABLE modulos_usuarios;
+
 CREATE TABLE
     comentarios(
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -140,6 +142,33 @@ SELECT * FROM proyectos;
 SELECT * FROM modulos;
 
 SELECT * FROM modulos_usuarios;
+
+SELECT * FROM comentarios;
+
+INSERT INTO
+    modulos_usuarios (id_usuario, id_modulo)
+VALUES(1005372573, 1);
+
+SELECT
+    modulos.nombre AS modulo,
+    c.contenido AS comentario,
+    c.fecha_creacion AS fecha,
+    usuarios.id AS id_usuario,
+    usuarios.nombre AS usuario
+FROM comentarios AS c
+    INNER JOIN usuarios ON c.id_usuario = usuarios.id
+    INNER JOIN modulos ON c.id_modulo = modulos.id
+WHERE modulos.id = 2;
+
+SELECT
+    roles.nombre AS rol,
+    usuarios.nombre AS usuario
+FROM modulos_usuarios AS ms
+    INNER JOIN usuarios ON ms.id_usuario = usuarios.id
+    INNER JOIN roles ON usuarios.id_rol = roles.id
+WHERE
+    ms.id_usuario = 1005372573
+    AND ms.id_modulo = 1;
 
 SELECT
     modulos.id,
