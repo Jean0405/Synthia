@@ -27,7 +27,7 @@ __decorate([
 __decorate([
     Expose({ name: "descripcion" }),
     Type(() => String),
-    MaxLength(100, {
+    MaxLength(255, {
         message: 'La descripción es muy larga',
     }),
     __metadata("design:type", String)

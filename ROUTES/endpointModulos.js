@@ -2,6 +2,7 @@ import mysql from "mysql2/promise";
 import { Router } from "express";
 import proxyModulo from "../MIDDLEWARE/proxyModulo.js";
 import proxyModulosUsuarios from "../MIDDLEWARE/proxyModulosUsuarios.js";
+import proxyComentario from "../MIDDLEWARE/proxyComentario.js";
 
 const MODULO = Router();
 let conn = undefined;
@@ -167,13 +168,13 @@ MODULO.delete("/:user_id/:mod_id", async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "ERROR TO UPDATE MODULE", error: error.message });
+      .json({ message: "ERROR TO DELETE MODULE", error: error.message });
   }
 });
 
 /*ASIGNAR USUARIOS A DETERMINADO MÓDULO */
 MODULO.post(
-  "/modulos_usuarios/:user_id",
+  "/modulos_usuarios/post/:user_id",
   proxyModulosUsuarios,
   async (req, res) => {
     // {
@@ -212,4 +213,146 @@ MODULO.post(
   }
 );
 
+/*ELIMINAR USUARIOS DE DETERMINADO MÓDULO */
+MODULO.delete(
+  "/modulos_usuarios/remove/:user_id",
+  proxyModulosUsuarios,
+  async (req, res) => {
+    // {
+    //   id_usuario:1005184201,
+    //   id_modulo:3
+    // }
+    const { user_id, id_usuario, id_modulo } = req.body;
+    try {
+      //Validamos si el usuario está registrado
+      const [rows, fields] = await conn.execute(
+        `SELECT usuarios.nombre, roles.nombre AS rol FROM usuarios INNER JOIN roles ON usuarios.id_rol = roles.id WHERE usuarios.id = ?`,
+        [user_id]
+      );
+      if (rows.length == 0) {
+        res.send("YOU ARE NOT REGISTERED");
+      } else {
+        //Validamos si el usuario tiene los permisos necesarios
+        if (rows[0].rol !== "admin") {
+          res.send("YOU DO NOT HAVE PERMISSION TO PERFORM THIS ACTION");
+        } else {
+          //Si cumple todo, realizamos el DELETE
+          await conn.execute(
+            `DELETE FROM modulos_usuarios WHERE id_usuario = ? AND id_modulo = ?`,
+            [id_usuario, id_modulo]
+          );
+          res.send("USER REMOVED FROM MODULE");
+        }
+      }
+    } catch (error) {
+      res.status(500).json({
+        message: "ERROR TO DELETE MODULOS_USUARIOS",
+        error: error.message,
+      });
+    }
+  }
+);
+
+//CREAR COMENTARIOS EN UN MÓDULO
+MODULO.post("/comentario/post", proxyComentario, async (req, res) => {
+  // {
+  //   "contenido":"Ese desarrollo tiene malas practicas",
+  //   "fecha_creacion":"2023-07-22",
+  //   "id_usuario":1005184202,
+  //   "id_modulo":1
+  // }
+  const { contenido, fecha_creacion, id_usuario, id_modulo } = req.body;
+  try {
+    //Validamos si el usuario está registrado
+    const [rows, fields] = await conn.execute(
+      `SELECT usuarios.nombre, roles.nombre AS rol FROM usuarios INNER JOIN roles ON usuarios.id_rol = roles.id WHERE usuarios.id = ?`,
+      [id_usuario]
+    );
+    if (rows.length == 0) {
+      res.send("YOU ARE NOT REGISTERED");
+    } else {
+      //Validamos si el usuario tiene los permisos necesarios
+      if (rows[0].rol !== "admin") {
+        res.send("YOU DO NOT HAVE PERMISSION TO PERFORM THIS ACTION");
+      } else {
+        //Si cumple todo, realizamos el POST
+        console.log(req.body);
+        await conn.query(`INSERT INTO comentarios SET ?`, {
+          contenido,
+          fecha_creacion,
+          id_usuario,
+          id_modulo,
+        });
+        res.send("PUBLISHED COMMENT");
+      }
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "ERROR POSTING COMMENT",
+      error: error.message,
+    });
+  }
+});
+MODULO.get("/comentario/get/:mod_id", proxyComentario, async (req, res) => {
+  const { mod_id } = req.body;
+  try {
+    const [rows, fields] = await conn.execute(
+      `SELECT
+        modulos.nombre AS modulo,
+        c.contenido AS comentario,
+        c.fecha_creacion AS fecha,
+        usuarios.id AS id_usuario,
+        usuarios.nombre AS usuario
+      FROM comentarios AS c
+        INNER JOIN usuarios ON c.id_usuario = usuarios.id
+        INNER JOIN modulos ON c.id_modulo = modulos.id
+      WHERE modulos.id = ?`,
+      [mod_id]
+    );
+    res.send(rows);
+  } catch (error) {
+    res.status(500).json({
+      message: "ERROR LISTING COMMENTS",
+      error: error.message,
+    });
+  }
+});
+/*ELIMINAR COMENTARIO DE UN MÓDULO*/
+MODULO.delete(
+  "/comentario/delete/:user_id/:id",
+  proxyComentario,
+  async (req, res) => {
+    const { user_id, id } = req.body;
+    try {
+      const [rows, fields] = await conn.execute(
+        `SELECT usuarios.*, roles.nombre AS rol FROM usuarios
+      INNER JOIN roles ON usuarios.id_rol = roles.id
+      WHERE usuarios.id = ?`,
+        [user_id]
+      );
+      if (rows.length == 0) {
+        res.send("YOU ARE NOT REGISTERED");
+      } else {
+        const [rowsC, fields] = await conn.execute(
+          `SELECT * FROM comentarios WHERE id = ?`,
+          [id]
+        );
+        if (rowsC.length == 0) {
+          res.send("THIS COMMENT DOESN'T EXIST");
+        } else {
+          if (rows[0].rol !== "admin") {
+            res.send("YOU DO NOT HAVE PERMISSION TO PERFORM THIS ACTION");
+          } else {
+            await conn.execute(`DELETE FROM comentarios WHERE id = ?`, [id]);
+            res.send("COMMENT HAS BEEN DELETED");
+          }
+        }
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "ERROR TO UPDATE MODULE", error: error.message });
+    }
+  }
+);
 export default MODULO;

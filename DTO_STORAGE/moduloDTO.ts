@@ -10,7 +10,7 @@ export class Modulo {
 
   @Expose({ name: "descripcion" })
   @Type(() => String)
-  @MaxLength(100, {
+  @MaxLength(255, {
     message: 'La descripción es muy larga',
   })
   descripcion: string;
