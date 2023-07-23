@@ -145,9 +145,31 @@ SELECT * FROM modulos_usuarios;
 
 SELECT * FROM comentarios;
 
-INSERT INTO
-    modulos_usuarios (id_usuario, id_modulo)
-VALUES(1005372573, 1);
+SELECT * FROM estados;
+
+SELECT * FROM proyectos_estados;
+
+SELECT * FROM modulos_estados;
+
+SELECT
+    modulos.id,
+    estados.nombre AS estado,
+    modulos.nombre AS modulo,
+    modulos.descripcion,
+    proyectos.nombre AS nombre_proyecto
+FROM modulos_estados AS ms
+    INNER JOIN modulos ON ms.id_modulo = modulos.id
+    INNER JOIN estados ON ms.id_estado = estados.id
+    INNER JOIN proyectos ON modulos.id_proyecto = proyectos.id;
+
+SELECT
+    estados.nombre AS estado,
+    proyectos.nombre AS proyecto,
+    proyectos.descripcion,
+    proyectos.fecha_creacion
+FROM proyectos_estados
+    INNER JOIN proyectos ON proyectos_estados.id_proyecto = proyectos.id
+    INNER JOIN estados ON proyectos_estados.id_estado = estados.id;
 
 SELECT
     modulos.nombre AS modulo,
