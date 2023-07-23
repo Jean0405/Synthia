@@ -1,6 +1,7 @@
 import { Router } from "express";
 import mysql from "mysql2/promise";
 import proxyEstado from "../MIDDLEWARE/proxyEstado.js";
+import { validateToken } from "../AUTH/tokensAuth.js";
 
 const ESTADO = Router();
 let conn = undefined;
@@ -14,6 +15,9 @@ ESTADO.use((req, res, next) => {
     res.send(error + "-> CONNECTION ERROR");
   }
 });
+
+//Middleware para validar token
+ESTADO.use(validateToken);
 
 /* CREAR ESTADOS */
 ESTADO.post("/:user_id", proxyEstado, async (req, res) => {

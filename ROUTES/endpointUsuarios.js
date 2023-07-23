@@ -1,6 +1,7 @@
 import { Router } from "express";
 import mysql from "mysql2/promise";
 import proxyUsuario from "../MIDDLEWARE/proxyUsuario.js";
+import { validateToken } from "../AUTH/tokensAuth.js";
 
 const USUARIO = Router();
 let conn = undefined;
@@ -15,8 +16,18 @@ USUARIO.use((req, res, next) => {
   }
 });
 
+USUARIO.use((req, res, next) => {
+  // Si la ruta es /post, no se requiere autenticación, pasa al siguiente middleware (o controlador)
+  if (req.path === "/post") {
+    return next();
+  }
+
+  // Para todas las demás rutas, aplicar el middleware de verificación del token JWT
+  validateToken(req, res, next);
+});
+
 /* CREAR USUARIOS */
-USUARIO.post("/", proxyUsuario, async (req, res) => {
+USUARIO.post("/post", proxyUsuario, async (req, res) => {
   // {
   //   "id":1005372571,
   //   "nombre":"Cristian Diaz",
@@ -26,7 +37,8 @@ USUARIO.post("/", proxyUsuario, async (req, res) => {
   // }
   try {
     await conn.query(`INSERT INTO usuarios SET ?`, req.body);
-    res.send("DATA INSERTED");
+    res.cookie("USER TOKEN", req.auth, { httpOnly: true });
+    res.send({ MESSAGE: "REGISTERED USER", JWT: req.auth });
   } catch (error) {
     res
       .status(500)
@@ -34,15 +46,15 @@ USUARIO.post("/", proxyUsuario, async (req, res) => {
   }
 });
 
-USUARIO.get("/", async (req, res) => {
+USUARIO.get("/get", async (req, res) => {
   const [rows, fields] = await conn.execute(
     `SELECT usuarios.id, usuarios.nombre, usuarios.email, roles.nombre AS rol FROM usuarios INNER JOIN roles ON usuarios.id_rol = roles.id`
   );
   res.send(rows);
 });
 
-/*ELIMINAR USUARIOS */
-USUARIO.delete("/:id", proxyUsuario, async (req, res) => {
+/*ELIMINAR USUARIOS*/
+USUARIO.delete("/delete/:id", proxyUsuario, async (req, res) => {
   try {
     await conn.execute(`DELETE FROM usuarios WHERE id = ?`, [req.params.id]);
     res.send("DATA DELETE");
@@ -54,7 +66,7 @@ USUARIO.delete("/:id", proxyUsuario, async (req, res) => {
 });
 
 /*ACTUALIZAR USUARIOS */
-USUARIO.put("/:id_user", proxyUsuario, async (req, res) => {
+USUARIO.put("/put/:id_user", proxyUsuario, async (req, res) => {
   const { id_user } = req.params;
   const { id, nombre, email, contrasena, id_rol } = req.body;
   console.log(req.body);

@@ -2,6 +2,7 @@ import { Router } from "express";
 import mysql from "mysql2/promise";
 import proxyProyecto from "../MIDDLEWARE/proxyProyecto.js";
 import proxyProyectosEstados from "../MIDDLEWARE/proxyProyectosEstados.js";
+import { validateToken } from "../AUTH/tokensAuth.js";
 
 const PROYECTO = Router();
 let conn = undefined;
@@ -15,6 +16,8 @@ PROYECTO.use((req, res, next) => {
     res.send(error + "-> CONNECTION ERROR");
   }
 });
+
+PROYECTO.use(validateToken);
 
 /*CREAR PROYECTOS*/
 PROYECTO.post("/:user_id", proxyProyecto, async (req, res) => {
@@ -38,6 +41,9 @@ PROYECTO.post("/:user_id", proxyProyecto, async (req, res) => {
         res.send("YOU DO NOT HAVE PERMISSION TO PERFORM THIS ACTION");
       } else {
         await conn.query(`INSERT INTO proyectos SET ?`, req.body);
+        res.cookie("USER TOKEN", req.headers.authorization, {
+          httpOnly: true,
+        });
         res.send("DATA INSERTED");
       }
     }
@@ -49,7 +55,7 @@ PROYECTO.post("/:user_id", proxyProyecto, async (req, res) => {
 });
 
 /*LISTAR PROYECTOS */
-PROYECTO.get("/", async (req, res) => {
+PROYECTO.get("/", proxyProyecto, async (req, res) => {
   const [rows, fields] = await conn.execute(
     `SELECT
     modulos.id,
@@ -62,6 +68,9 @@ FROM modulos_estados AS ms
     INNER JOIN estados ON ms.id_estado = estados.id
     INNER JOIN proyectos ON modulos.id_proyecto = proyectos.id`
   );
+  res.cookie("USER TOKEN", req.headers.authorization, {
+    httpOnly: true,
+  });
   res.send(rows);
 });
 
@@ -100,6 +109,9 @@ PROYECTO.put("/:user_id/:project_id", proxyProyecto, async (req, res) => {
           WHERE id = ?`,
             [nombre, descripcion, fecha_creacion, project_id]
           );
+          res.cookie("USER TOKEN", req.headers.authorization, {
+            httpOnly: true,
+          });
           res.send("PROJECT HAS BEEN UPDATED");
         }
       }
@@ -139,6 +151,9 @@ PROYECTO.delete("/:user_id/:project_id", proxyProyecto, async (req, res) => {
           await conn.execute(`DELETE FROM proyectos WHERE id = ?`, [
             project_id,
           ]);
+          res.cookie("USER TOKEN", req.headers.authorization, {
+            httpOnly: true,
+          });
           res.send("PROJECT HAS BEEN DELETED");
         }
       }

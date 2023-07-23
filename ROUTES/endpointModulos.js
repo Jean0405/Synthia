@@ -4,6 +4,7 @@ import proxyModulo from "../MIDDLEWARE/proxyModulo.js";
 import proxyModulosUsuarios from "../MIDDLEWARE/proxyModulosUsuarios.js";
 import proxyComentario from "../MIDDLEWARE/proxyComentario.js";
 import proxyModulosEstados from "../MIDDLEWARE/proxyModulosEstados.js";
+import { validateToken } from "../AUTH/tokensAuth.js";
 
 const MODULO = Router();
 let conn = undefined;
@@ -17,6 +18,9 @@ MODULO.use((req, res, next) => {
     res.send(error + "-> CONNECTION ERROR");
   }
 });
+
+//Middleware para validar token
+MODULO.use(validateToken);
 
 /*CREAR MÓDULOS */
 MODULO.post("/:user_id", proxyModulo, async (req, res) => {
