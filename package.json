@@ -21,6 +21,8 @@
     "typescript": "^5.1.6"
   },
   "devDependencies": {
-    "class-validator": "0.14.0"
+    "class-validator": "0.14.0",
+    "cookie-parser": "1.4.6",
+    "jose": "4.14.4"
   }
 }
