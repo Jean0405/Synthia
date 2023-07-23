@@ -7,29 +7,43 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Expose, Transform } from "class-transformer";
-export class ModulosUsuarios {
-    constructor(user_id = 0, id_usuario = 0, id_modulo = 0) {
+import { Expose, Transform } from 'class-transformer';
+export class ProyectosEstados {
+    constructor(id = 0, id_estado = 0, id_proyecto = 0, user_id = 0, project_id = 0) {
+        this.id = id;
+        this.id_estado = id_estado;
+        this.id_proyecto = id_proyecto;
         this.user_id = user_id;
-        this.id_usuario = id_usuario;
-        this.id_modulo = id_modulo;
+        this.project_id = project_id;
     }
 }
+__decorate([
+    Expose({ name: "id" }),
+    Transform(({ value }) => { if (Math.floor(value) && typeof value == "number")
+        return Math.floor(value); }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], ProyectosEstados.prototype, "id", void 0);
+__decorate([
+    Expose({ name: "id_estado" }),
+    Transform(({ value }) => { if (Math.floor(value) && typeof value == "number")
+        return Math.floor(value); }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], ProyectosEstados.prototype, "id_estado", void 0);
+__decorate([
+    Expose({ name: "id_proyecto" }),
+    Transform(({ value }) => { if (Math.floor(value) && typeof value == "number")
+        return Math.floor(value); }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], ProyectosEstados.prototype, "id_proyecto", void 0);
 __decorate([
     Expose({ name: "user_id" }),
     Transform(({ value }) => { if (Math.floor(value) && typeof value == "number")
         return Math.floor(value); }, { toClassOnly: true }),
     __metadata("design:type", Number)
-], ModulosUsuarios.prototype, "user_id", void 0);
+], ProyectosEstados.prototype, "user_id", void 0);
 __decorate([
-    Expose({ name: "id_usuario" }),
+    Expose({ name: "project_id" }),
     Transform(({ value }) => { if (Math.floor(value) && typeof value == "number")
         return Math.floor(value); }, { toClassOnly: true }),
     __metadata("design:type", Number)
-], ModulosUsuarios.prototype, "id_usuario", void 0);
-__decorate([
-    Expose({ name: "id_modulo" }),
-    Transform(({ value }) => { if (Math.floor(value) && typeof value == "number")
-        return Math.floor(value); }, { toClassOnly: true }),
-    __metadata("design:type", Number)
-], ModulosUsuarios.prototype, "id_modulo", void 0);
+], ProyectosEstados.prototype, "project_id", void 0);
