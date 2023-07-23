@@ -3,6 +3,7 @@ import { Router } from "express";
 import proxyModulo from "../MIDDLEWARE/proxyModulo.js";
 import proxyModulosUsuarios from "../MIDDLEWARE/proxyModulosUsuarios.js";
 import proxyComentario from "../MIDDLEWARE/proxyComentario.js";
+import proxyModulosEstados from "../MIDDLEWARE/proxyModulosEstados.js";
 
 const MODULO = Router();
 let conn = undefined;
@@ -293,6 +294,8 @@ MODULO.post("/comentario/post", proxyComentario, async (req, res) => {
     });
   }
 });
+
+//LISTAR COMENTARIOS DE UN MODULO DETERMINADO
 MODULO.get("/comentario/get/:mod_id", proxyComentario, async (req, res) => {
   const { mod_id } = req.body;
   try {
@@ -317,6 +320,7 @@ MODULO.get("/comentario/get/:mod_id", proxyComentario, async (req, res) => {
     });
   }
 });
+
 /*ELIMINAR COMENTARIO DE UN MÓDULO*/
 MODULO.delete(
   "/comentario/delete/:user_id/:id",
@@ -355,4 +359,80 @@ MODULO.delete(
     }
   }
 );
+
+//ASIGNAR UN ESTADO A UN PROYECTO
+MODULO.post(
+  "/modulos_estados/:user_id",
+  proxyModulosEstados,
+  async (req, res) => {
+    const { user_id, id_estado, id_modulo } = req.body;
+    try {
+      //Validamos si el usuario está registrado
+      const [rows, fields] = await conn.execute(
+        `SELECT usuarios.nombre, roles.nombre AS rol FROM usuarios INNER JOIN roles ON usuarios.id_rol = roles.id WHERE usuarios.id = ?`,
+        [user_id]
+      );
+      if (rows.length == 0) {
+        res.send("YOU ARE NOT REGISTERED");
+      } else {
+        //Validamos si el usuario tiene los permisos necesarios
+        if (rows[0].rol !== "admin") {
+          res.send("YOU DO NOT HAVE PERMISSION TO PERFORM THIS ACTION");
+        } else {
+          await conn.query(`INSERT INTO modulos_estados SET ?`, {
+            id_estado,
+            id_modulo,
+          });
+          res.send("DATA INSERTED");
+        }
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "ERROT TO INSERT STATUS ", error: error.message });
+    }
+  }
+);
+
+MODULO.put(
+  "/modulos_estados/:user_id/:modStatus_id",
+  proxyModulosEstados,
+  async (req, res) => {
+    const { user_id, id_estado, modStatus_id } = req.body;
+    try {
+      const [rows, fields] = await conn.execute(
+        ` SELECT usuarios.*, roles.nombre AS rol FROM usuarios
+            INNER JOIN roles ON usuarios.id_rol = roles.id
+          WHERE usuarios.id = ?`,
+        [user_id]
+      );
+      if (rows.length == 0) {
+        res.send("YOU ARE NOT REGISTERED");
+      } else {
+        const [rowsC, fields] = await conn.execute(
+          `SELECT * FROM modulos_estados WHERE id = ?`,
+          [modStatus_id]
+        );
+        if (rowsC.length == 0) {
+          res.send("THIS STATUS MODULE DOESN'T EXIST");
+        } else {
+          if (rows[0].rol !== "admin") {
+            res.send("YOU DO NOT HAVE PERMISSION TO PERFORM THIS ACTION");
+          } else {
+            await conn.execute(
+              `UPDATE modulos_estados SET id_estado = ? WHERE id = ?`,
+              [id_estado, modStatus_id]
+            );
+            res.send("STATUS HAS BEEN UPDATED");
+          }
+        }
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "ERROR TO UPDATE STATUS ", error: error.message });
+    }
+  }
+);
+
 export default MODULO;
