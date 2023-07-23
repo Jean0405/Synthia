@@ -1,5 +1,5 @@
 import { plainToInstance } from "class-transformer";
-import { ModulosUsuarios } from "../controller/modulos_usuarios.js";
+import { ModulosUsuarios } from "../controller/modulos_usuariosDTO.js";
 
 const proxyModulosUsuarios =
   ("/:user_id",
