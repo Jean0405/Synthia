@@ -220,7 +220,7 @@ PROYECTO.put(
           [project_id]
         );
         if (rowsC.length == 0) {
-          res.send("THIS PROJECT STATUS DOESN'T EXIST");
+          res.send("THIS PROJECT DOESN'T EXIST");
         } else {
           if (rows[0].rol !== "admin") {
             res.send("YOU DO NOT HAVE PERMISSION TO PERFORM THIS ACTION");

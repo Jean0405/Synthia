@@ -364,7 +364,7 @@ MODULO.delete(
   }
 );
 
-//ASIGNAR UN ESTADO A UN PROYECTO
+//ASIGNAR UN ESTADO A UN MÓDULO
 MODULO.post(
   "/modulos_estados/:user_id",
   proxyModulosEstados,
