@@ -55,6 +55,13 @@ INSERT INTO roles(nombre) VALUES ("admin"),("desarrollador");
 
 ## 📍 **USO DE LOS ENDPOINTS**
 
+| ⚠️⚠️ **IMPORTANTE A TENER EN CUENTA** ⚠️⚠️                                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------- |
+| _PARA PODER USAR LOS ENDPOINTS DEBES HABERTE REGISTRADO Y TENER UN TOKEN ACTIVO, ESTE SE OBTIENE AL HABER CREADO TU USUARIO_ |
+
+| ❗❗ **DE LO CONTRARIO NO FUNCIONARAN LOS ENDPOINTS SIN UN TOKEN**❗❗ |
+| ---------------------------------------------------------------------- |
+
 Para probar los endpoints puedes usar la herramienta de **THUNDER CLIENT** en **Visual studio code**
 
 Para el ejemplo, usaremos la ruta http://localhost:3300
