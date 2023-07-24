@@ -55,6 +55,14 @@ _Es importante que ejecutes al final el siguiente query, debido a que en el proy
 INSERT INTO roles(nombre) VALUES ("admin"),("desarrollador");
 ```
 
+6. Ejecuta en tu terminal para correr el proyecto
+
+```bash
+npm run dev
+```
+
+Con esto podrás correr el proyecto y empezar a hacer uso de el, recuerda seguir las advertencias dadas. 😉
+
 ## 📍 **USO DE LOS ENDPOINTS**
 
 ⚠️⚠️ **IMPORTANTE A TENER EN CUENTA** ⚠️⚠️
