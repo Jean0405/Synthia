@@ -1,8 +1,8 @@
 # Synthia
 
-## OBJETIVOS GENERALES
-
-- El objetivo general de este proyecto es desarrollar una plataforma de gestión de proyectos que permita la creación de módulos, asignación de desarrolladores y seguimiento del progreso, con el fin de facilitar la administración y ejecución eficiente de proyectos.
+| **OBJETIVOS GENERALES**                                                                                                                                                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| El objetivo general de este proyecto es desarrollar una plataforma de gestión de proyectos que permitala creación de módulos, asignación de desarrolladores y seguimiento del progreso, con el fin de facilitar la administración y ejecución eficiente de proyectos. |
 
 | **OBJETIVOS ESPECÍFICOS**                                                                                                                                                                     |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -47,7 +47,9 @@ JWT_PRIVATE_KEY=""
 
 5. EJECUTA TODOS LOS QUERYS DEL ARCHIVO **DB/db.sql**
 
-- ⚠️⚠️ **NOTA:** _Es importante que ejecutes al final el siguiente query, debido a que en el proyecto solo hay 2 roles ---> **[ **admin** y **desarrollador** ]**. Y deben existir por defecto en la DB para la creación de los usuarios._ ⚠️⚠️
+⚠️⚠️ **IMPORTANTE A TENER EN CUENTA** ⚠️⚠️
+
+_Es importante que ejecutes al final el siguiente query, debido a que en el proyecto solo hay 2 roles **[ **admin** y **desarrollador** ]**. Y deben existir por defecto en la DB para la creación de los usuarios._
 
 ```sql
 INSERT INTO roles(nombre) VALUES ("admin"),("desarrollador");
@@ -55,14 +57,11 @@ INSERT INTO roles(nombre) VALUES ("admin"),("desarrollador");
 
 ## 📍 **USO DE LOS ENDPOINTS**
 
-| ⚠️⚠️ **IMPORTANTE A TENER EN CUENTA** ⚠️⚠️ |
-| ------------------------------------------ |
+⚠️⚠️ **IMPORTANTE A TENER EN CUENTA** ⚠️⚠️
 
-| _PARA PODER USAR LOS ENDPOINTS DEBES HABERTE REGISTRADO Y TENER UN TOKEN ACTIVO, ESTE SE OBTIENE AL HABER CREADO TU USUARIO_
+_PARA PODER USAR LOS ENDPOINTS DEBES HABERTE REGISTRADO Y TENER UN TOKEN ACTIVO, ESTE SE OBTIENE AL HABER CREADO TU USUARIO_ ❗**DE LO CONTRARIO NO FUNCIONARAN LOS ENDPOINTS SIN UN TOKEN**❗
 
-❗❗ **DE LO CONTRARIO NO FUNCIONARAN LOS ENDPOINTS SIN UN TOKEN**❗❗|
-
-Para probar los endpoints puedes usar la herramienta de **THUNDER CLIENT** en **Visual studio code**
+- Para probar los endpoints puedes usar la herramienta de **THUNDER CLIENT** en **Visual studio code**
 
 Para el ejemplo, usaremos la ruta http://localhost:3300
 
