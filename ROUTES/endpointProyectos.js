@@ -56,18 +56,7 @@ PROYECTO.post("/:user_id", proxyProyecto, async (req, res) => {
 
 /*LISTAR PROYECTOS */
 PROYECTO.get("/", proxyProyecto, async (req, res) => {
-  const [rows, fields] = await conn.execute(
-    `SELECT
-    modulos.id,
-    estados.nombre AS estado,
-    modulos.nombre AS modulo,
-    modulos.descripcion,
-    proyectos.nombre AS nombre_proyecto
-FROM modulos_estados AS ms
-    INNER JOIN modulos ON ms.id_modulo = modulos.id
-    INNER JOIN estados ON ms.id_estado = estados.id
-    INNER JOIN proyectos ON modulos.id_proyecto = proyectos.id`
-  );
+  const [rows, fields] = await conn.execute(`SELECT * FROM proyectos`);
   res.cookie("USER TOKEN", req.headers.authorization, {
     httpOnly: true,
   });

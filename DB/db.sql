@@ -202,3 +202,22 @@ INSERT INTO roles(nombre) VALUES ("admin"),("desarrollador");
  descripcion = "blah",
  id_proyecto = 1
  WHERE id = 3; */
+
+SELECT * FROM usuarios;
+
+SELECT
+    proyectos.nombre AS proyecto,
+    modulos.nombre AS modulos
+FROM modulos
+    INNER JOIN proyectos ON modulos.id_proyecto = proyectos.id;
+
+SELECT
+    modulos.id,
+    estados.nombre AS estado,
+    modulos.nombre AS modulo,
+    modulos.descripcion,
+    proyectos.nombre AS nombre_proyecto
+FROM modulos_estados AS ms
+    INNER JOIN modulos ON ms.id_modulo = modulos.id
+    INNER JOIN estados ON ms.id_estado = estados.id
+    INNER JOIN proyectos ON modulos.id_proyecto = proyectos.id;
