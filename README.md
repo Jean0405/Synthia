@@ -65,13 +65,14 @@ Con esto podrás correr el proyecto y empezar a hacer uso de el, recuerda seguir
 
 ## 📍 **USO DE LOS ENDPOINTS**
 
-⚠️⚠️ **IMPORTANTE A TENER EN CUENTA** ⚠️⚠️
-
-_PARA PODER USAR LOS ENDPOINTS DEBES HABERTE REGISTRADO Y TENER UN TOKEN ACTIVO, ESTE SE OBTIENE AL HABER CREADO TU USUARIO_ ❗**DE LO CONTRARIO NO FUNCIONARAN LOS ENDPOINTS SIN UN TOKEN**❗
+| ⚠️⚠️ **IMPORTANTE A TENER EN CUENTA** ⚠️⚠️                                                                                                                                                     |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| _PARA PODER USAR LOS ENDPOINTS DEBES HABERTE REGISTRADO Y TENER UN TOKEN ACTIVO, ESTE SE OBTIENE AL HABER CREADO TU USUARIO_ ❗**DE LO CONTRARIO NO FUNCIONARAN LOS ENDPOINTS SIN UN TOKEN**❗ |
+| _TU TOKEN SE GENERA REGISTRANDOTE, NO LO OLVIDES!!_                                                                                                                                            |
 
 - Para probar los endpoints puedes usar la herramienta de **THUNDER CLIENT** en **Visual studio code**
 
-Para el ejemplo, usaremos la ruta http://localhost:3300
+**Para el ejemplo, usaremos la ruta http://localhost:3300**
 
 ## ⚪⚪**ENDPOINTS USUARIOS**
 
